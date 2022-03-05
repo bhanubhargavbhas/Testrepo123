@@ -10,7 +10,7 @@ resource "aws_instance" "main" {
     "${aws_security_group.allow_all_outbound.id}",
   ]
 
-  tags {
+  tags ={
     Name = "CodeDeployDemo"
   }
 
@@ -18,7 +18,8 @@ resource "aws_instance" "main" {
     script = "./install_codedeploy_agent.sh"
 
     connection {
-      agent       = false
+      agent       = false	
+      host        = self.public_ip
       type        = "ssh"
       user        = "ec2-user"
       private_key = "${file(var.private_key_path)}"
